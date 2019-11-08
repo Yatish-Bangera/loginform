@@ -1,0 +1,103 @@
+<table class="table table-striped" *ngIf="check">
+  <thead>
+    <tr>
+      <th scope="col">Sr.no</th>
+      <th scope="col">Customer Id</th>
+      <th scope="col">FirstName</th>
+      <th scope="col">LastName</th>
+      <th scope="col">Email</th>
+      <th scope="col">Password</th>
+      <th scope="col">Edit/Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of userdata let i=index">
+      <td>{{i+1}}</td>
+      <td>{{item.id}}</td>
+      <td>{{item.firstName}}</td>
+      <td>{{item.lastName}}</td>
+      <td>{{item.email}}</td>
+      <td>{{item.password}}</td>
+      <td>
+      <button (click)="onmodal(item)"class="btn btn-success"> Edit</button>
+        <button type="button" class="btn btn-primary id close text-red" aria-label="Close" (click)="ondelete(item.id)">
+          <span aria-hidden="true">&times;</span>
+        </button></td>
+
+    </tr>
+
+  </tbody>
+</table>
+    <div id="myModal" *ngIf="modalOpen" class="modal">
+    
+        <div class="modal-content mx-auto">
+          
+      
+                <div class="">
+            <div class="">
+                <div class=" ">
+                    <div class="jumbotron ">
+                        <button class="close">
+                            <span (click)="close()">x</span>
+                           </button>
+                        <h2 class="text-center">Updation</h2>
+                        <form name="form" [formGroup]="form" (ngSubmit)="form.valid && onupdate()">
+                            <div class="form-group ">
+                                <label for="firstName">First Name</label>
+                                <input type="text" class="form-control" formControlName="firstName"
+                                    [ngClass]="{'is-invalid':form.get('firstName').touched && form.get('firstName').invalid }"/>
+                                    <div *ngIf="form.get('firstName').touched && form.get('firstName').invalid" class="invalid-feedback">
+                                        <div *ngIf="form.get('firstName').errors"><small> Firstname is required</small></div>
+                                    </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" class="form-control" formControlName="lastName"
+                                    [ngClass]="{'is-invalid':form.get('lastName').touched && form.get('lastName').invalid}"/>
+                                    <div *ngIf="form.get('lastName').touched && form.get('lastName').invalid" class="invalid-feedback">
+                                        <div *ngIf="form.get('lastName').errors"><small> Lastname is required</small></div>
+                                    </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="text" class="form-control" formControlName="email"
+                                    [ngClass]="{'is-invalid':form.get('email').touched && form.get('email').invalid}" />
+                                <div *ngIf="form.get('email').touched && form.get('email').invalid" class="invalid-feedback">
+                                    <div *ngIf="form.get('email').errors"><small> Email is required</small></div>
+                                <div *ngIf="form.get('email').invalid" class="invalid-feedback"></div>
+                                    <div *ngIf="form.get('email').errors"><small> Must be a valid email Address</small></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" formControlName="password"
+                                    [ngClass]="{'is-invalid':form.get('password').touched && form.get('password').invalid}" />
+                                <div *ngIf="form.get('password').touched && form.get('password').invalid"
+                                    class="invalid-feedback">
+                                    <div *ngIf="form.get('password').errors"><small> Password is required</small></div>
+                                </div>
+                            </div>
+                            <nav>
+                            <div class="form-group text-center">
+                                <button  (click)="onupdate()" class="btn btn-primary" [disabled]="!form.valid">Update</button>
+                            </div>
+                            
+                        </nav>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+      </div>
+    
+    </div>
+
+
+
+
+
+
+
+
+
